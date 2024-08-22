@@ -9,8 +9,8 @@ repositories:
     url: https://kubernetes.github.io/ingress-nginx
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
-  - name: 1password
-    url: https://1password.github.io/connect-helm-charts
+  - name: postgres
+    url: https://cloudnative-pg.github.io/charts
 ---
 releases:
   # Distributed Storage
@@ -49,10 +49,8 @@ releases:
     values:
       - ./values/externaldns.values.yaml
 
-  # 1Password Operator
-  - name: 1password-system
-    namespace: 1password-system
-    chart: 1password/connect
-    version: 1.15.1
-    values:
-      - ./values/1password.values.yaml
+  # Postgres operator
+  - name: postgres-system
+    namespace: postgres-system
+    chart: cnpg/cloudnative-pg
+    version: 0.21.6
