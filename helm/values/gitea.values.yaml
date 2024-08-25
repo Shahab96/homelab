@@ -2,9 +2,11 @@ service:
   http:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: gitea.home
+      metallb.universe.tf/allow-shared-ip: gitea
   ssh:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: gitea.home
+      metallb.universe.tf/allow-shared-ip: gitea
 ingress:
   enabled: true
   className: nginx-internal
