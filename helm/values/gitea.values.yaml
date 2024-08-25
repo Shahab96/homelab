@@ -1,0 +1,45 @@
+service:
+  http:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: gitea.home
+  ssh:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: gitea.home
+ingress:
+  enabled: true
+  className: nginx-internal
+  hosts:
+    - host: gitea.home
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+gitea:
+  admin:
+    existingSecret: gitea-admin
+  config:
+    database:
+      DB_TYPE: postgres
+      HOST: postgres-cluster-rw.postgres-system.svc.cluster.local:5432
+      NAME: giteadb
+      USER: gitea
+    cache:
+      ADAPTER: memcache
+      HOST: memcached.memcached-system.svc.cluster.local:11211
+    session:
+      PROVIDER: db
+      PROVIDER_CONFIG: ""
+    lfs:
+      STORAGE_TYPE: local
+  additionalConfigFromEnvs:
+    - name: GITEA__DATABASE__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: gitea-postgres
+          key: password
+    - name: GITEA__SERVER__LFS_START_SERVER
+      value: "true"
+postgresql-ha:
+  enabled: false
+redis-cluster:
+  enabled: false

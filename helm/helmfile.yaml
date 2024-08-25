@@ -11,6 +11,8 @@ repositories:
     url: https://charts.bitnami.com/bitnami
   - name: postgres
     url: https://cloudnative-pg.github.io/charts
+  - name: gitea
+    url: https://dl.gitea.com/charts/
 ---
 releases:
   # Distributed Storage
@@ -54,3 +56,17 @@ releases:
     namespace: postgres-system
     chart: cnpg/cloudnative-pg
     version: 0.21.6
+
+  # Memcached
+  - name: memcached
+    namespace: memcached-system
+    chart: bitnami/memcached
+    version: 7.4.11
+
+  # Gitea
+  - name: gitea
+    namespace: gitea-system
+    chart: gitea/gitea
+    version: 10.4.0
+    values:
+      - ./values/gitea.values.yaml

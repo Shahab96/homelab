@@ -7,7 +7,7 @@ extraEnvVars:
   - name: EXTERNAL_DNS_PIHOLE_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: pihole-password
+        name: pihole-admin
         key: password
 serviceAccount:
   create: true

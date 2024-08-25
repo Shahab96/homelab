@@ -1,12 +1,3 @@
----
-apiVersion: onepassword.com/v1
-kind: OnePasswordItem
-metadata:
-  name: postgres-password
-  namespace: postgres-system
-spec:
-  itemPath: "vaults/Lab/items/Postgres"
----
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -22,7 +13,9 @@ spec:
     pg_hba:
       - host all all all md5
 
-  enableSuperuserAccess: false
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: postgres-password
 
   bootstrap:
     initdb:

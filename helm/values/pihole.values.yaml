@@ -1,6 +1,12 @@
 ---
 DNS1:
   192.168.0.1
+DNS2:
+  1.1.1.1
+admin:
+  enabled: true
+  existingSecret: pihole-admin
+  passwordKey: password
 persistentVolumeClaim:
   enabled: true
 ingress:
