@@ -1,0 +1,13 @@
+grafana:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx-internal
+    annotations:
+      cert-manager.io/cluster-issuer: selfsigned-issuer
+    hosts:
+      - grafana.home
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - grafana.home
