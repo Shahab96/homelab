@@ -30,3 +30,17 @@ serviceDns:
     metallb.universe.tf/allow-shared-ip: pihole-svc
   type: LoadBalancer
 replicaCount: 1
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "9617"
+monitoring:
+  sidecar:
+    enabled: true
+    port: 9617
+    image:
+      repository: ekofr/pihole-exporter
+      tag: v0.3.0
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        memory: 128Mi
