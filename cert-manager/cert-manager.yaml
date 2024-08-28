@@ -1,0 +1,19 @@
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: ca-cert
+  namespace: cert-manager
+  annotations:
+    operator.1password.io/auto-restart: "true"
+spec:
+  itemPath: "vaults/Lab/items/ca"
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+  namespace: cert-manager
+spec:
+  ca:
+    secretName: ca-cert

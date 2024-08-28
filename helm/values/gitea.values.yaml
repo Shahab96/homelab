@@ -12,12 +12,17 @@ service:
 ingress:
   enabled: true
   className: nginx-internal
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-issuer
   hosts:
     - host: gitea.home
       paths:
         - path: /
           pathType: Prefix
-  tls: []
+  tls:
+    - secretName: gitea-tls
+      hosts:
+        - gitea.home
 gitea:
   admin:
     existingSecret: gitea-admin
