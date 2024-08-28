@@ -22,9 +22,18 @@ ingress:
       hosts:
         - gitea.home
 gitea:
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "6060"
   admin:
     existingSecret: gitea-admin
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
   config:
+    server:
+      ENABLE_PPROF: true
     database:
       DB_TYPE: postgres
       HOST: postgres-cluster-rw.postgres-system.svc.cluster.local:5432
