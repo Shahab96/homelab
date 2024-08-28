@@ -12,7 +12,9 @@ repositories:
   - name: postgres
     url: https://cloudnative-pg.github.io/charts
   - name: gitea
-    url: https://dl.gitea.com/charts/
+    url: https://dl.gitea.com/charts
+  - name: jetstack
+    url: https://charts.jetstack.io
 ---
 releases:
   # Distributed Storage
@@ -70,3 +72,11 @@ releases:
     version: 10.4.0
     values:
       - ./values/gitea.values.yaml
+
+  # Cert Manager
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: 1.15.3
+    values:
+      - ./values/cert-manager.values.yaml
