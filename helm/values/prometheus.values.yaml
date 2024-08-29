@@ -4,7 +4,7 @@ grafana:
     enabled: true
     ingressClassName: nginx-internal
     annotations:
-      cert-manager.io/cluster-issuer: selfsigned-issuer
+      cert-manager.io/cluster-issuer: cluster-issuer
     hosts:
       - grafana.home
     tls:

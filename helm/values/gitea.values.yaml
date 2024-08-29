@@ -11,7 +11,7 @@ ingress:
   enabled: true
   className: nginx-internal
   annotations:
-    cert-manager.io/cluster-issuer: selfsigned-issuer
+    cert-manager.io/cluster-issuer: cluster-issuer
   hosts:
     - host: gitea.home
       paths:

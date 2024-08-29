@@ -12,7 +12,7 @@ persistentVolumeClaim:
 ingress:
   enabled: true
   annotations:
-    cert-manager.io/cluster-issuer: selfsigned-issuer
+    cert-manager.io/cluster-issuer: cluster-issuer
   hosts:
     - pihole.home
   tls:
