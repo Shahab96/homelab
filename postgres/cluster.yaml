@@ -1,3 +1,4 @@
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -6,22 +7,26 @@ metadata:
 spec:
   instances: 3
   minSyncReplicas: 1
-  maxSyncReplicas: 2
+  maxSyncReplicas: 1
   primaryUpdateStrategy: unsupervised
-
+  certificates:
+    serverAltDNSNames:
+     - postgres.home
   postgresql:
     pg_hba:
-      - host all all all md5
-
+      - hostssl all     all   all          cert
+      - hostssl giteadb gitea 10.42.0.0/16 md5
   enableSuperuserAccess: true
   superuserSecret:
     name: postgres-password
-
   bootstrap:
     initdb:
       database: postgres
       secret:
         name: postgres-password
-
+      postInitSQL:
+        - 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
+        - 'CREATE USER shahab SUPERUSER CREATEROLE;'
+        - 'CREATE DATABASE giteadb;'
   storage:
     size: 1Gi
