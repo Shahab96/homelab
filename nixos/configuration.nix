@@ -88,6 +88,7 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
+      cloudflared
     ];
     # Created using mkpasswd
     hashedPassword = "$6$.ZlYnf2cZph4tCbM$E/JJUDirRV8MZrgX4Rh.Pi1q95tev1ZxcKjPA1I.uURv56qoWcC39MJWO9S2T5MlkPVbSLGiM8Ihfz9mERImo/";
