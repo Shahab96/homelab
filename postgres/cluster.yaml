@@ -11,14 +11,15 @@ spec:
   primaryUpdateStrategy: unsupervised
   certificates:
     serverAltDNSNames:
-     - postgres.home
+      - postgres.home
+      - localhost
   postgresql:
     pg_hba:
-      - hostssl all     all   all          cert
-      - hostssl giteadb gitea 10.42.0.0/16 md5
-  enableSuperuserAccess: true
-  superuserSecret:
-    name: postgres-password
+      - hostssl all      shahab   all          cert
+      - hostssl all      dogar    all          cert
+      - hostssl sameuser all      all          cert
+      - hostssl giteadb  gitea    10.42.0.0/16 scram-sha-256
+  enableSuperuserAccess: false
   bootstrap:
     initdb:
       database: postgres
@@ -26,7 +27,12 @@ spec:
         name: postgres-password
       postInitSQL:
         - 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
-        - 'CREATE USER shahab SUPERUSER CREATEROLE;'
+        - 'CREATE USER shahab SUPERUSER;'
+        - 'CREATE USER dogar SUPERUSER;'
+        - 'CREATE USER leviathan;'
+        - 'CREATE DATABASE leviathan;'
+        - 'CREATE USER "schedule-consist";'
+        - 'CREATE DATABASE "schedule-consist";'
         - 'CREATE DATABASE giteadb;'
   storage:
     size: 1Gi
