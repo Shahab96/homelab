@@ -57,6 +57,10 @@ gitea:
           key: password
     - name: GITEA__SERVER__LFS_START_SERVER
       value: "true"
+persistence:
+  enabled: true
+  accessModes:
+    - ReadWriteMany
 postgresql-ha:
   enabled: false
 redis-cluster:
