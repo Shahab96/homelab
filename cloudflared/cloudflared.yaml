@@ -66,5 +66,5 @@ data:
     - hostname: postgres.dogar.dev
       service: tcp://postgres-cluster-rw.postgres-system.svc.cluster.local:5432
     - hostname: git.dogar.dev
-      service: http://gitea-http.gitea-system.svc.cluster.local:3000
+      service: http://git.dogar.dev
     - service: http_status:404
