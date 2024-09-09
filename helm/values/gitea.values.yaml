@@ -47,6 +47,8 @@ gitea:
       PROVIDER_CONFIG: ""
     lfs:
       STORAGE_TYPE: local
+    service:
+      DISABLE_REGISTRATION: true
   additionalConfigFromEnvs:
     - name: GITEA__DATABASE__PASSWD
       valueFrom:
