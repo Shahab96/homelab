@@ -8,6 +8,7 @@ import { Cilium } from "./cilium";
 import { Longhorn } from "./longhorn";
 import { MetalLB } from "./metallb";
 import { Traefik } from "./traefik";
+import { GatewayApiCrds } from "./crds/gateway";
 
 export class CoreServices extends TerraformStack {
   constructor(scope: Construct, id: string) {
@@ -34,6 +35,10 @@ export class CoreServices extends TerraformStack {
 
     new TerraformOutput(this, "namespace-output", {
       value: namespace,
+    });
+
+    new GatewayApiCrds(this, "gateway-api-crds", {
+      gatewayCrdsUrl: "https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.0/experimental-install.yaml",
     });
 
     new Cilium(this, "cilium", {
