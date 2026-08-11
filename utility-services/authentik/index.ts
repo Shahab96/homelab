@@ -37,6 +37,8 @@ export class AuthentikServer extends Construct {
       repository: "https://charts.goauthentik.io",
       chart: "authentik",
       createNamespace: true,
+      upgradeInstall: true,
+      version: "2026.5.6",
       values: [
         fs.readFileSync(path.join(__dirname, "values.yaml"), {
           encoding: "utf8",
