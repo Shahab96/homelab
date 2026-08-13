@@ -35,7 +35,7 @@ export class NetbirdPublicHttpRoute extends Construct {
           parentRefs: [{
             name: "public",
             namespace: "netbird",
-            sectionName: "https",
+            sectionName: "netbird",
           }],
           rules: [{
             backendRefs,
