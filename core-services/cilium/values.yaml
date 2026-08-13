@@ -1,4 +1,9 @@
 kubeProxyReplacement: true
+# Allow forwarded (non-socket-originated) traffic to ClusterIPs to be DNAT'd.
+# Required for netbird-operator routing peers: https://github.com/netbirdio/kubernetes-operator/issues/215
+socketLB:
+  enabled: true
+  hostNamespaceOnly: true
 cluster:
   name: omf
   id: 1
