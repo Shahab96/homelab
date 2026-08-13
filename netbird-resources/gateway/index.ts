@@ -15,20 +15,6 @@ export class Gateway extends Construct {
 
     const { provider, namespace, gatewayClassName, name } = options;
 
-    new Manifest(this, "gatewayClass", {
-      provider,
-      manifest: {
-        apiVersion: "gateway.networking.k8s.io/v1",
-        kind: "GatewayClass",
-        metadata: {
-          name: gatewayClassName,
-        },
-        spec: {
-          controllerName: "gateway.netbird.io/constroller",
-        },
-      },
-    });
-
     new Manifest(this, "gateway", {
       provider,
       manifest: {
@@ -44,6 +30,11 @@ export class Gateway extends Construct {
             protocol: "gateway.netbird.io/NetworkRouter",
             name: "netbird",
             port: 1,
+            allowedRoutes: {
+              namespaces: {
+                from: "All",
+              },
+            },
           }],
         },
       },
