@@ -30,6 +30,13 @@ server:
     whenScaled: Retain
   standalone:
     enabled: false
+  service:
+    # The netbird operator does not propagate the HTTPRoute backendRef port to the
+    # reverse-proxy target, so the proxy dials port 80. Map 80 -> 8200.
+    extraPorts:
+      - name: netbird-proxy
+        port: 80
+        targetPort: 8200
   ha:
     enabled: true
     replicas: 3
