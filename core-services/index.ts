@@ -76,6 +76,7 @@ export class CoreServices extends TerraformStack {
 
     const openbao = new OpenBao(this, "openbao", {
       provider: helm,
+      kubernetesProvider: kubernetes,
       name: "openbao",
       namespace: "openbao",
     });
