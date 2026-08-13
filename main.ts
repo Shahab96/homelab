@@ -59,6 +59,7 @@ const authentik = new Authentik(app, "authentik");
 authentik.node.addDependency(utilityServices);
 
 const netbirdResources = new NetbirdResources(app, "netbird-resources");
+netbirdResources.node.addDependency(netbird);
 
 const deploy: (stack: TerraformStack, key: string) => S3Backend = (
   stack,
