@@ -9,6 +9,7 @@ import { Longhorn } from "./longhorn";
 import { MetalLB } from "./metallb";
 import { Traefik } from "./traefik";
 import { GatewayApiCrds } from "./crds/gateway";
+import { OpenBao } from "./openbao";
 
 export class CoreServices extends TerraformStack {
   constructor(scope: Construct, id: string) {
@@ -37,7 +38,7 @@ export class CoreServices extends TerraformStack {
       value: namespace,
     });
 
-    new GatewayApiCrds(this, "gateway-api-crds", {
+    const gatewayApiCrds = new GatewayApiCrds(this, "gateway-api-crds", {
       gatewayCrdsUrl: "https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.0/experimental-install.yaml",
     });
 
@@ -47,7 +48,7 @@ export class CoreServices extends TerraformStack {
       namespace: "kube-system",
     });
 
-    new Longhorn(this, "longhorn", {
+    const longhorn = new Longhorn(this, "longhorn", {
       name: "longhorn",
       providers: {
         kubernetes,
@@ -72,5 +73,13 @@ export class CoreServices extends TerraformStack {
       name: "cert-manager",
       namespace,
     });
+
+    const openbao = new OpenBao(this, "openbao", {
+      provider: helm,
+      name: "openbao",
+      namespace: "openbao",
+    });
+    openbao.node.addDependency(gatewayApiCrds);
+    openbao.node.addDependency(longhorn);
   }
 }

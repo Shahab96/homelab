@@ -1,0 +1,42 @@
+global:
+  enabled: false
+  namespace: openbao
+
+server:
+  enabled: true
+  gateway:
+    httpRoute:
+      enabled: true
+      apiVersion: gateway.networking.k8s.io/v1
+      activeService: true
+      hosts:
+        - vault.dogar.dev
+      parentRefs:
+        - name: public
+          namespace: netbird
+          sectionName: netbird
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Proto
+                value: https
+  dataStorage:
+    enabled: true
+    size: 2Gi
+    storageClass: longhorn
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  standalone:
+    enabled: false
+  ha:
+    enabled: true
+    replicas: 3
+    # Default chart value is https://, which mismatches tls_disable=1 on the listener.
+    clusterAddr: "http://$(HOSTNAME).openbao-internal:8201"
+    raft:
+      enabled: true
+
+ui:
+  enabled: true

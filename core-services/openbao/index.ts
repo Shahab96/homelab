@@ -1,0 +1,29 @@
+import * as fs from "fs";
+import * as path from "path";
+import { HelmProvider } from "@cdktf/provider-helm/lib/provider";
+import { Release } from "@cdktf/provider-helm/lib/release";
+import { Construct } from "constructs";
+
+type OpenBaoOptions = {
+  provider: HelmProvider;
+  name: string;
+  namespace: string;
+};
+
+export class OpenBao extends Construct {
+  constructor(scope: Construct, id: string, options: OpenBaoOptions) {
+    super(scope, id);
+
+    new Release(this, id, {
+      ...options,
+      repository: "https://openbao.github.io/openbao-helm",
+      chart: "openbao",
+      createNamespace: true,
+      values: [
+        fs.readFileSync(path.join(__dirname, "values.yaml"), {
+          encoding: "utf8",
+        }),
+      ],
+    });
+  }
+}
