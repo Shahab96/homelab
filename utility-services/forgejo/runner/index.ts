@@ -12,6 +12,7 @@ type ForgejoRunnerOptions = {
   namespace: string;
   replicas?: number;
   runnerUuid: string;
+  registryMirror?: string;
 };
 
 export class ForgejoRunner extends Construct {
@@ -20,6 +21,11 @@ export class ForgejoRunner extends Construct {
 
     const { provider, name, namespace, runnerUuid } = options;
     const replicas = options.replicas?.toString() ?? "1";
+
+    const dindArgs = ["--host", "tcp://0.0.0.0:2375"];
+    if (options.registryMirror) {
+      dindArgs.push("--registry-mirror", options.registryMirror);
+    }
 
     const pvc = new LonghornPvc(this, "data-pvc", {
       provider,
@@ -43,7 +49,7 @@ export class ForgejoRunner extends Construct {
         namespace,
       },
       spec: {
-        minAvailable: replicas,
+        maxUnavailable: "1",
         selector: {
           matchLabels: {
             app: name,
@@ -213,7 +219,7 @@ export class ForgejoRunner extends Construct {
               {
                 name: "dind",
                 image: "docker:28.5.2-dind",
-                args: ["--host", "tcp://0.0.0.0:2376"],
+                args: dindArgs,
                 env: [
                   {
                     name: "DOCKER_TLS_CERTDIR",

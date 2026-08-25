@@ -126,6 +126,7 @@ export class UtilityServices extends TerraformStack {
       name: "forgejo-runner",
       replicas: 1,
       runnerUuid: "d23d6d11-cd39-486c-8078-7ce671902933",
+      registryMirror: "https://pkgs.dogar.dev",
     });
 
     forgejoRunner.node.addDependency(forgejo);
