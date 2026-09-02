@@ -38,7 +38,7 @@ export class AuthentikServer extends Construct {
       chart: "authentik",
       createNamespace: true,
       upgradeInstall: true,
-      version: "2026.5.6",
+      version: "2026.8.1",
       values: [
         fs.readFileSync(path.join(__dirname, "values.yaml"), {
           encoding: "utf8",
