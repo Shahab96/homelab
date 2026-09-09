@@ -17,7 +17,6 @@ export class PublicIngressRoute extends IngressRoute {
       ...opts,
       tlsSecretName,
       entryPoints: ["websecure"],
-      middlewares: ["homelab/rate-limit"],
     });
 
     const { provider, name, namespace, host } = opts;
