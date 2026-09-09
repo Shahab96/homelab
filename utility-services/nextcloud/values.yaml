@@ -1,0 +1,18 @@
+nextcloud:
+  objectStore:
+    s3:
+      enabled: true
+      host: "https://blob.dogar.dev"
+      autoCreate: true
+      existingSecret: "rustfs-credentials"
+      secretKeys:
+        accessKey: "accessKey"
+        secretKey: "secretKey"
+
+internalDatabase:
+  enabled: false
+
+externalDatabase:
+  enabled: true
+  type: postgresql
+  host: "postgres-cluster-rw.homelab.svc.cluster.internal"
